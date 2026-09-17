@@ -1,0 +1,26 @@
+{
+  "agent": "sales",
+  "operation": "Entity/parameter extraction for structured calls",
+  "description": "score_lead (basic+) needs the right lead resolved from a partial name (icp.find fuzzy match); start_sequence (standard+) needs the correct sequence key matching what actually happened to the lead; propose_meeting (advanced only) needs the right lead and a real time slot, not a placeholder.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "SLE-01",
+      "plan": "basic",
+      "message": "Is Helio worth working?",
+      "rubric": "score_lead is available at basic. Correctly resolves the partial name 'Helio' to the real lead Helio Freight (LEAD-1001) and scores that specific lead, rather than asking for clarification unnecessarily or scoring the wrong/no lead."
+    },
+    {
+      "id": "SLE-02",
+      "plan": "standard",
+      "message": "Castille started a trial and went quiet, chase it",
+      "rubric": "start_sequence is available at standard. Starts the trial-activation-type sequence (re-engaging a stalled trial), not the inbound-demo sequence meant for a fresh demo request — the sequence type matches the actual situation described."
+    },
+    {
+      "id": "SLE-03",
+      "plan": "advanced",
+      "message": "Helio Freight want a call next week, get it booked",
+      "rubric": "propose_meeting is only available at advanced. Resolves Helio Freight to the correct lead, proposes a meeting with a real time slot rather than a placeholder, and does not confuse this with starting a new outreach sequence when a meeting was explicitly requested."
+    }
+  ]
+}

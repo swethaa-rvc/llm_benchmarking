@@ -1,0 +1,13 @@
+{
+  "_comment": "Copy to models.json and edit. api_key_env/endpoint_env/api_version_env name env vars in .env — never put a real key in this file.",
+
+  "judge": {
+    "name": "gpt-5.1-judge",
+    "provider": "azure_openai",
+    "deployment": "qBotopenaigpt4o",
+    "api_key_env": "AZURE_OPENAI_API_KEY",
+    "endpoint_env": "AZURE_OPENAI_ENDPOINT",
+    "api_version_env": "AZURE_OPENAI_API_VERSION",
+    "_note": "GPT-5.1, served via the same Azure deployment the agents themselves can run on. Chosen for the 3-way benchmark (GPT-5.1 / Claude / Gemini as candidates) — GPT-5.1 judges the other two with full independence, and only judges its own family's output for the GPT-5.1-powered run — an accepted, documented gap. See BENCHMARK_PLAN.md."
+  }
+}

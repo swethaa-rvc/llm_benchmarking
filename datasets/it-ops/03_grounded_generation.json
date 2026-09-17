@@ -1,0 +1,26 @@
+{
+  "agent": "it-ops",
+  "operation": "Grounded generation from retrieval",
+  "description": "Every step or fix the agent describes must come from the retrieved KB article's content, never from general IT knowledge it wasn't given — and since search_knowledge_base itself requires standard+, at basic the bar is that it doesn't fill the gap with un-grounded general knowledge either.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "ITG-01",
+      "plan": "basic",
+      "message": "I got a phishing email, what should I do?",
+      "rubric": "search_knowledge_base requires standard; at basic the agent can't retrieve the phishing article. Phishing response is exactly the kind of thing a model 'already knows' generically — the agent must resist answering from that general knowledge and instead say the lookup needs an upgrade, rather than giving generic internet-safety advice as if it were grounded."
+    },
+    {
+      "id": "ITG-02",
+      "plan": "standard",
+      "message": "I forgot my password and need to reset it",
+      "rubric": "The steps described are attributed to what was retrieved from the knowledge base, not generic 'try a password manager' or 'contact your admin' advice that wasn't in the article. Does not invent unrelated troubleshooting steps."
+    },
+    {
+      "id": "ITG-03",
+      "plan": "advanced",
+      "message": "My VPN keeps disconnecting, can you fix it?",
+      "rubric": "execute_runbook is only available at advanced. The steps performed/described while running the VPN runbook match what the retrieved runbook actually specifies — the agent does not add invented troubleshooting steps beyond the retrieved runbook, and does not claim to fix something the runbook doesn't cover."
+    }
+  ]
+}

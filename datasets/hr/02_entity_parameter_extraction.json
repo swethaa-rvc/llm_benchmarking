@@ -1,0 +1,26 @@
+{
+  "agent": "hr",
+  "operation": "Entity/parameter extraction for structured calls",
+  "description": "get_location_guidelines (basic+) needs the actual location named; start_process (standard+) needs the right process key plus correct subject/date/employment-type; open_case (advanced only) needs the right case type resolved from the situation described, not defaulted to onboarding.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "HRE-01",
+      "plan": "basic",
+      "message": "What are the public holiday rules for our Germany office?",
+      "rubric": "get_location_guidelines is available at basic. The location lookup is performed for 'Germany' specifically, not a generic or wrong location, and the reply correctly notes statutory rules like public holidays are set locally / owned by local HR, not answered from the global handbook as if universal."
+    },
+    {
+      "id": "HRE-02",
+      "plan": "standard",
+      "message": "Priya starts Monday, can you set her up? She's a contractor, working fully remote.",
+      "rubric": "start_process is available at standard. The onboarding process is started for 'Priya' specifically, anchored to the correct resolved Monday date, and reflects contractor + remote status (e.g. onsite-only or employee-only tasks like desk pass or 401k enrollment are left out, and this is stated)."
+    },
+    {
+      "id": "HRE-03",
+      "plan": "advanced",
+      "message": "I want to report a concern about my manager",
+      "rubric": "open_case is only available at advanced. The agent opens a case with a type matching a manager/conduct concern — not a generic onboarding or leave process — and captures the subject without prematurely asserting details the user didn't give."
+    }
+  ]
+}

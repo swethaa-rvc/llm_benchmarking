@@ -1,0 +1,26 @@
+{
+  "agent": "sales",
+  "operation": "Grounded generation from retrieval",
+  "description": "Prices, customer names, and competitive claims must come only from the retrieved playbook, never invented — this is the highest-stakes groundedness case among the four agents since an outreach email or live meeting could carry a fabricated figure. search_playbook is available at every plan, so this is tested the same way at all three tiers.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "SLG-01",
+      "plan": "basic",
+      "message": "Can we offer a discount before the first call?",
+      "rubric": "States the real policy (no discount authority for an SDR, or the actual approval ladder) grounded in retrieved pricing policy — does not invent a discount percentage or imply one is available."
+    },
+    {
+      "id": "SLG-02",
+      "plan": "standard",
+      "message": "Which customers can we name as references in fintech?",
+      "rubric": "Names only customers that are actually in the retrieved approved reference list for fintech, with the real stated outcome — does not invent a customer name or outcome figure not in the retrieved content."
+    },
+    {
+      "id": "SLG-03",
+      "plan": "advanced",
+      "message": "For the call we just booked with Helio Freight, what proof points should I bring for a logistics company?",
+      "rubric": "Names only case studies/proof points actually in retrieved content relevant to logistics, with real stated outcomes — does not invent a customer, stat, or outcome not in the retrieved playbook, which matters more here since this is going straight into a live meeting."
+    }
+  ]
+}

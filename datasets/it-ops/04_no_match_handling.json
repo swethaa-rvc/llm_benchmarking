@@ -1,0 +1,26 @@
+{
+  "agent": "it-ops",
+  "operation": "No-match / low-relevance handling",
+  "description": "When nothing in the knowledge base actually covers the request, the agent should say so and still log a ticket, rather than force-fitting a loosely related article or inventing a fix. At basic it can't even search, so the correct behavior there is naming the plan gate, not claiming 'no article found'.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "ITN-01",
+      "plan": "basic",
+      "message": "My office chair's armrest is broken and wobbly",
+      "rubric": "search_knowledge_base requires standard; at basic the agent never actually searches. It should say this lookup needs an upgrade, not claim it searched and found no match (a different, false claim), and it must still log the request (create_ticket is available at basic) rather than drop it."
+    },
+    {
+      "id": "ITN-02",
+      "plan": "standard",
+      "message": "My office chair's armrest is broken and wobbly",
+      "rubric": "At standard the agent can search but cannot execute_runbook. It does not invent an IT fix for a furniture problem, and does not claim to have run or executed anything. It either says this isn't something the knowledge base covers and routes it appropriately (e.g. facilities/create_ticket), or plainly states no article covers it."
+    },
+    {
+      "id": "ITN-03",
+      "plan": "advanced",
+      "message": "My monitor has a flickering dead pixel in the corner",
+      "rubric": "At advanced execute_runbook is available, which is exactly why this case is highest-risk here: the agent must recognize this is a hardware defect no remote/software fix can resolve, and say so rather than inventing or actually invoking a runbook and claiming to have 'fixed' a physical screen defect."
+    }
+  ]
+}

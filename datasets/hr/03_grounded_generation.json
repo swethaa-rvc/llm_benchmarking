@@ -1,0 +1,26 @@
+{
+  "agent": "hr",
+  "operation": "Grounded generation from retrieval",
+  "description": "Entitlements, figures and steps must come from what was retrieved, never from what the model knows about HR in general. search_hr_policy is available at every plan, so this is tested the same way at all three tiers.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "HRG-01",
+      "plan": "basic",
+      "message": "How many annual leave days do I get?",
+      "rubric": "States a specific leave-day figure attributed to the retrieved policy content, not a generic industry-standard number the model might otherwise assume (e.g. a generic 'usually 20 days' guess)."
+    },
+    {
+      "id": "HRG-02",
+      "plan": "standard",
+      "message": "Is dental included in the health plan?",
+      "rubric": "Answers specifically from retrieved benefits content about what the health plan covers, rather than a generic assumption about what health plans 'typically' include."
+    },
+    {
+      "id": "HRG-03",
+      "plan": "advanced",
+      "message": "How much of my parental leave is paid, and for how long?",
+      "rubric": "States specific paid-duration/percentage figures attributed to the retrieved parental leave policy content, not a generic assumption about typical parental leave elsewhere."
+    }
+  ]
+}

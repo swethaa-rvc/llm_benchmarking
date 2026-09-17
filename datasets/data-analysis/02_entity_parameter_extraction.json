@@ -1,0 +1,26 @@
+{
+  "agent": "data-analysis",
+  "operation": "Entity/parameter extraction for structured calls",
+  "description": "query_dataset (basic+) needs the right segment resolved from a partial/informal name plus a specific period (YYYY-MM) when named; synthesize_trend (standard+) needs the right segment resolved for trend comparison; generate_recommendation (advanced only) needs the right segment resolved and a recommendation grounded in that segment's actual trend.",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "DAE-01",
+      "plan": "basic",
+      "message": "What was Mobile App's revenue back in July?",
+      "rubric": "query_dataset is available at basic. Resolves 'Mobile App' to the real Mobile App segment and specifically pulls the 2026-07 period rather than defaulting silently to the latest month (August) without addressing that July was asked for."
+    },
+    {
+      "id": "DAE-02",
+      "plan": "standard",
+      "message": "How's the Enterprise thing with the API doing?",
+      "rubric": "synthesize_trend is available at standard. Correctly resolves the vague reference to the real 'Enterprise API' segment (not a different segment, and not asking for clarification when the reference is reasonably identifiable) before running or describing its trend."
+    },
+    {
+      "id": "DAE-03",
+      "plan": "advanced",
+      "message": "What should we do about the Mobile App decline?",
+      "rubric": "generate_recommendation is only available at advanced. Correctly resolves to the Mobile App segment and generates a recommendation grounded in that specific segment's actual trend data, not a generic recommendation or a different segment's data."
+    }
+  ]
+}

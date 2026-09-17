@@ -1,0 +1,26 @@
+{
+  "agent": "sales",
+  "operation": "Search query formulation + category filter selection",
+  "description": "search_playbook(query, category) accepts an optional category filter (ICP, Qualification, Outreach, Pricing, Competitive, Meetings, Objections, Proof) and is available at every plan (basic+). Does the agent scope the search to the right topic?",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "SLQ-01",
+      "plan": "basic",
+      "message": "What's the monthly price for the Growth plan?",
+      "rubric": "The retrieved/cited content is pricing-specific (a real list price figure is given), not generic ICP or competitive content."
+    },
+    {
+      "id": "SLQ-02",
+      "plan": "standard",
+      "message": "How do we compare against Northwind Analytics if a prospect brings them up?",
+      "rubric": "The retrieved/cited content is competitive-positioning specific, giving only approved comparison statements, not pricing or ICP content unrelated to the competitor question."
+    },
+    {
+      "id": "SLQ-03",
+      "plan": "advanced",
+      "message": "What proof points do we have for a case study in healthcare?",
+      "rubric": "The retrieved/cited content is Proof-category specific, citing an actual case study or reference relevant to healthcare, not pricing or ICP content unrelated to the question."
+    }
+  ]
+}

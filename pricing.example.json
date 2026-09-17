@@ -1,0 +1,39 @@
+{
+  "_comment": [
+    "PLACEHOLDER rates — copy to pricing.json and replace with real numbers",
+    "before trusting any cost figure this project reports.",
+    "",
+    "Figures are per MILLION tokens — the unit every provider actually",
+    "publishes rates in, so you can paste a pricing page's numbers straight",
+    "in without converting.",
+    "",
+    "model_name MUST exactly match what each agent's /chat response actually",
+    "reports (its 'model' field). Check AZURE_OPENAI_DEPLOYMENT_NAME /",
+    "ANTHROPIC_MODEL_NAME / GEMINI_MODEL_NAME in",
+    "revinci-ai-agents-demo-bundle/.env for the real values in use.",
+    "",
+    "NOTE: 'qBotopenaigpt4o' is an Azure deployment LABEL, not the real",
+    "model — confirmed the actual model behind it is GPT-5.1, not GPT-4o.",
+    "Figures below are placeholder guesses, not confirmed rates for any of",
+    "the 3 — see ARCHITECTURE.md's open question about pulling from the",
+    "billing platform (shared/billing/client.py) instead."
+  ],
+  "models": [
+    {
+      "model_name": "qBotopenaigpt4o",
+      "_note": "Azure deployment label — actual model is GPT-5.1. Placeholder rate only.",
+      "price_per_million_prompt": 2.50,
+      "price_per_million_completion": 10.00
+    },
+    {
+      "model_name": "claude-sonnet-4-5",
+      "price_per_million_prompt": 3.00,
+      "price_per_million_completion": 15.00
+    },
+    {
+      "model_name": "gemini-2.5-flash",
+      "price_per_million_prompt": 0.30,
+      "price_per_million_completion": 2.50
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "agent": "hr",
+  "operation": "Search query formulation + category filter selection",
+  "description": "search_hr_policy(query, category) accepts an optional category filter (Leave, Benefits, Conduct, Compensation, General) and is available at every plan (basic+). Does the agent pick the right category matching the actual topic, so retrieval is scoped correctly rather than searching everything?",
+  "grading": "judge_rubric",
+  "cases": [
+    {
+      "id": "HRQ-01",
+      "plan": "basic",
+      "message": "How much does the company match on my 401(k)?",
+      "rubric": "The retrieved/cited content is about retirement/benefits matching, not leave policy or conduct policy — the answer gives an actual figure or explains what's covered, grounded in the right topic area."
+    },
+    {
+      "id": "HRQ-02",
+      "plan": "standard",
+      "message": "What counts as gross misconduct here?",
+      "rubric": "The retrieved/cited content is about conduct/disciplinary policy, not benefits or leave — the answer addresses conduct standards specifically, not a generic HR answer."
+    },
+    {
+      "id": "HRQ-03",
+      "plan": "advanced",
+      "message": "Do we get a stipend for setting up a home office?",
+      "rubric": "The retrieved/cited content is compensation/benefits-specific about stipends, not leave or conduct content — the answer is grounded in that category, not a generic HR answer."
+    }
+  ]
+}

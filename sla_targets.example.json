@@ -1,0 +1,25 @@
+{
+  "_comment": [
+    "PLACEHOLDER SLA targets — copy to sla_targets.json and replace with real",
+    "numbers agreed with your lead before treating any breach as real.",
+    "These starter values are only reasonable-sounding guesses, not agreed targets."
+  ],
+  "targets": [
+    {
+      "metric": "accuracy",
+      "comparison": "gte",
+      "target_value": 0.70,
+      "agent": null,
+      "operation": null,
+      "_note": "placeholder: every agent should average at least 70% across all operations"
+    },
+    {
+      "metric": "response_time_ms",
+      "comparison": "lte",
+      "target_value": 15000,
+      "agent": null,
+      "operation": null,
+      "_note": "placeholder: no agent's reply should average over 15s"
+    }
+  ]
+}
