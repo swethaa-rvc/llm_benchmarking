@@ -1,24 +1,21 @@
 {
   "agent": "data-analysis",
   "operation": "Search query formulation + category filter selection",
-  "description": "search_analytics_kb(query, category) accepts an optional category filter (Definitions, Methodology, DataQuality, Reporting, Recommendations, Segments, Review, Limitations) and is available at every plan (basic+). Does the agent scope retrieval to the right topic?",
+  "description": "search_analytics_kb(query, category) accepts an optional category filter (Definitions, Methodology, DataQuality, Reporting, Recommendations, Segments, Review, Limitations). Does the agent scope retrieval to the right topic?",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "DAQ-01",
-      "plan": "basic",
       "message": "How is the trend score actually calculated?",
       "rubric": "The retrieved/cited content is methodology-specific (the weighted criteria, bands, minimum history), not a generic or unrelated article like data-quality or limitations."
     },
     {
       "id": "DAQ-02",
-      "plan": "standard",
       "message": "Can I share this segment's exact revenue number with a partner outside the company?",
       "rubric": "The retrieved/cited content is about reporting standards/confidentiality specifically, addressing what may be shared externally — not methodology or segment-ownership content unrelated to the question."
     },
     {
       "id": "DAQ-03",
-      "plan": "advanced",
       "message": "What's our official definition of a 'segment' in this dataset?",
       "rubric": "The retrieved/cited content is Definitions-category specific, not methodology or limitations content unrelated to the question."
     }

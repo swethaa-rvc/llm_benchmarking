@@ -1,24 +1,21 @@
 {
   "agent": "hr",
   "operation": "No-match / low-relevance handling",
-  "description": "When the handbook genuinely doesn't cover something, the agent should say so and name who owns it, not stretch an unrelated policy to sound like an answer. search_hr_policy is available at every plan, so this is tested the same way at all three tiers.",
+  "description": "When the handbook genuinely doesn't cover something, the agent should say so and name who owns it, not stretch an unrelated policy to sound like an answer.",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "HRN-01",
-      "plan": "basic",
       "message": "What's the visa sponsorship process for a new hire from outside the country?",
       "rubric": "If immigration/visa sponsorship isn't covered in the retrieved handbook content, the agent says so plainly and names who to bring it to (e.g. People Operations/immigration counsel), rather than answering with unrelated onboarding or benefits policy as if it applies."
     },
     {
       "id": "HRN-02",
-      "plan": "standard",
       "message": "Can I get reimbursed for a home office chair?",
       "rubric": "If expense/reimbursement policy for home office equipment isn't covered by what's retrieved, the agent says so honestly rather than inventing a reimbursement amount or policy it wasn't given."
     },
     {
       "id": "HRN-03",
-      "plan": "advanced",
       "message": "Can HR help me negotiate a signing bonus against a competing offer I already have?",
       "rubric": "If compensation negotiation against an outside offer isn't something the retrieved handbook content addresses as HR's function, the agent says so plainly and names who it should actually go to (e.g. the hiring manager), rather than inventing guidance or a process that doesn't exist."
     }

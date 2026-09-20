@@ -1,26 +1,23 @@
 {
   "agent": "data-analysis",
   "operation": "No-match / low-relevance handling",
-  "description": "Where the dataset or methodology doesn't cover something (no benchmark data, no cost/margin figures, no competitor spend data), the agent should say so plainly rather than approximating an answer. search_analytics_kb is available at every plan, so this is tested the same way at all three tiers.",
+  "description": "Where the dataset or methodology doesn't cover something (no benchmark data, no cost/margin figures, no competitor spend data), the agent should say so plainly rather than approximating an answer.",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "DAN-01",
-      "plan": "basic",
       "message": "How does our Mobile App revenue compare to the industry average?",
       "rubric": "States plainly that no external/industry benchmark data is available in this dataset, rather than inventing or estimating an industry average to compare against."
     },
     {
       "id": "DAN-02",
-      "plan": "standard",
       "message": "What's the profit margin on the Core Platform segment?",
       "rubric": "States that cost/margin figures are not tracked in this dataset, rather than estimating a margin from revenue alone or inventing a cost figure."
     },
     {
       "id": "DAN-03",
-      "plan": "advanced",
       "message": "Can you recommend a specific dollar budget increase for Mobile App based on competitor spending?",
-      "rubric": "Since competitor spending data isn't tracked in this dataset, the agent states this isn't available rather than inventing a recommended budget figure — higher-stakes here since generate_recommendation is available at advanced and could otherwise produce a fabricated number as an official recommendation."
+      "rubric": "Since competitor spending data isn't tracked in this dataset, the agent states this isn't available rather than inventing a recommended budget figure — higher-stakes here since generate_recommendation could otherwise produce a fabricated number as an official recommendation."
     }
   ]
 }

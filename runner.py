@@ -26,7 +26,7 @@ def load_datasets() -> list:
 def run_case(operation: str, agent: str, case: dict) -> dict:
     if "messages" in case:
         result, transcript, turn_results = agent_client.send_conversation(
-            agent, case["messages"], case["plan"])
+            agent, case["messages"])
         context = "\n\n".join(f"User: {u}\nAgent: {a}" for u, a in transcript)
         # Multi-turn cases bill per turn — sum across every turn actually run,
         # not just the last one, or cost/latency would undercount them.
@@ -36,7 +36,7 @@ def run_case(operation: str, agent: str, case: dict) -> dict:
         response_time_ms = sum(t.get("response_time_ms", 0) for t in turn_results)
         model_name = next((t.get("model", "") for t in reversed(turn_results) if t.get("model")), "")
     else:
-        result = agent_client.send(agent, case["message"], case["plan"])
+        result = agent_client.send(agent, case["message"])
         context = case["message"]
         prompt_tokens = result.get("prompt_tokens", 0)
         completion_tokens = result.get("completion_tokens", 0)
@@ -49,7 +49,7 @@ def run_case(operation: str, agent: str, case: dict) -> dict:
     if result.get("error"):
         return {
             "operation": operation, "case_id": case["id"], "agent": agent,
-            "plan": case["plan"], "score": 0.0,
+            "score": 0.0,
             "reasoning": f"agent call failed: {result['response']}",
             "actual": "", "method": "call_failed", "query": context,
             "prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0,
@@ -61,7 +61,7 @@ def run_case(operation: str, agent: str, case: dict) -> dict:
     except Exception as e:
         return {
             "operation": operation, "case_id": case["id"], "agent": agent,
-            "plan": case["plan"], "score": 0.0,
+            "score": 0.0,
             "reasoning": f"judge call failed: {e}",
             "actual": actual, "method": "judge_failed", "query": context,
             "prompt_tokens": prompt_tokens, "completion_tokens": completion_tokens,
@@ -70,7 +70,7 @@ def run_case(operation: str, agent: str, case: dict) -> dict:
         }
     return {
         "operation": operation, "case_id": case["id"], "agent": agent,
-        "plan": case["plan"], "score": grade.get("score", 0.0),
+        "score": grade.get("score", 0.0),
         "reasoning": grade.get("reasoning", ""), "actual": actual,
         "method": grade.get("method", "judge_rubric"), "query": context,
         "prompt_tokens": prompt_tokens, "completion_tokens": completion_tokens,

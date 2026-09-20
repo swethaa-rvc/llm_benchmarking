@@ -1,26 +1,23 @@
 {
   "agent": "it-ops",
   "operation": "Entity/parameter extraction for structured calls",
-  "description": "create_ticket (basic+) needs a real category (e.g. Email, Network, Laptop Hardware, Print, Security); check_service_status (standard+) needs a real service key (vpn, email, software_center, intranet, identity); execute_runbook/close_ticket (advanced only) need the right runbook resolved and the same ticket closed after, not invented or defaulted.",
+  "description": "create_ticket needs a real category (e.g. Email, Network, Laptop Hardware, Print, Security); check_service_status needs a real service key (vpn, email, software_center, intranet, identity); execute_runbook/close_ticket need the right runbook resolved and the same ticket closed after, not invented or defaulted.",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "ITE-01",
-      "plan": "basic",
       "message": "The printer on the 3rd floor is jammed again",
-      "rubric": "create_ticket is available at basic. The ticket is routed under a category matching Print (field-services queue), not a generic/unrelated category like Software or Other. The urgency is not escalated to Critical/High for a jammed printer."
+      "rubric": "The ticket is routed under a category matching Print (field-services queue), not a generic/unrelated category like Software or Other. The urgency is not escalated to Critical/High for a jammed printer."
     },
     {
       "id": "ITE-02",
-      "plan": "standard",
       "message": "Is the VPN down right now? I can't connect from home.",
-      "rubric": "check_service_status is available at standard. The status check targets the VPN service specifically (not email, not intranet, not identity) — the reply's content is about VPN reachability, not an unrelated service."
+      "rubric": "The status check targets the VPN service specifically (not email, not intranet, not identity) — the reply's content is about VPN reachability, not an unrelated service."
     },
     {
       "id": "ITE-03",
-      "plan": "advanced",
       "message": "My VPN keeps disconnecting, can you fix it end to end?",
-      "rubric": "execute_runbook and close_ticket are only available at advanced. The agent resolves the correct VPN runbook (not an unrelated category), executes it, and closes the same ticket it opened for this issue only after the fix step — it does not close an unrelated ticket or skip straight to closing without running the runbook."
+      "rubric": "The agent resolves the correct VPN runbook (not an unrelated category), executes it, and closes the same ticket it opened for this issue only after the fix step — it does not close an unrelated ticket or skip straight to closing without running the runbook."
     }
   ]
 }

@@ -1,26 +1,23 @@
 {
   "agent": "it-ops",
   "operation": "Search query formulation",
-  "description": "search_knowledge_base(query) takes free text with no category filter and requires the standard plan or higher. Does the agent turn a vague user complaint into a specific, symptom-focused search query rather than passing the raw complaint verbatim or a query too generic to retrieve the right article — and at basic, does it correctly say the lookup itself needs an upgrade instead of guessing an answer?",
+  "description": "search_knowledge_base(query) takes free text with no category filter. Does the agent turn a vague user complaint into a specific, symptom-focused search query rather than passing the raw complaint verbatim or a query too generic to retrieve the right article?",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "ITQ-01",
-      "plan": "basic",
-      "message": "ugh my emails just aren't coming through and outlook looks weird today",
-      "rubric": "search_knowledge_base requires the standard plan; at basic the agent does not have it. The agent says this lookup needs an upgrade (e.g. offers the standard plan) rather than guessing a fix from general Outlook/email knowledge it wasn't given by a tool."
+      "message": "my laptop has been crawling all morning, everything just hangs when I try to open anything",
+      "rubric": "The agent's search behavior/answer reflects a query targeted at slow performance / laptop hardware troubleshooting specifically, not a vague, catch-all search like 'computer problem'. Retrieved content addresses performance/freezing issues."
     },
     {
       "id": "ITQ-02",
-      "plan": "standard",
       "message": "I keep getting kicked off video calls and can't hear anyone on Teams",
       "rubric": "The agent's search behavior/answer reflects a query targeted at audio/Teams/AV issues specifically, not a generic 'network problem' search that would miss AV-specific guidance. The retrieved content addresses call/audio issues."
     },
     {
       "id": "ITQ-03",
-      "plan": "advanced",
       "message": "ugh my emails just aren't coming through and outlook looks weird today",
-      "rubric": "At advanced, search_knowledge_base is available. The agent's search behavior/answer reflects a query built around the actual technical symptom (Outlook / email sync failure), not the raw casual phrasing — same bar as at standard, confirming the higher plan doesn't regress search quality."
+      "rubric": "The agent's search behavior/answer reflects a query built around the actual technical symptom (Outlook / email sync failure), not the raw casual phrasing passed through verbatim or a query too generic to retrieve the right article."
     }
   ]
 }

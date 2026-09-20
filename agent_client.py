@@ -36,11 +36,11 @@ def reset_all() -> None:
             print(f"[agent_client] warning: reset failed for {name}: {e}")
 
 
-def _post_chat(url: str, session_id: str, message: str, plan: str) -> dict:
+def _post_chat(url: str, session_id: str, message: str) -> dict:
     try:
         r = requests.post(
             f"{url}/chat",
-            json={"session_id": session_id, "message": message, "tier": plan},
+            json={"session_id": session_id, "message": message},
             timeout=TIMEOUT_S,
         )
         if r.status_code != 200:
@@ -52,13 +52,13 @@ def _post_chat(url: str, session_id: str, message: str, plan: str) -> dict:
         return {"error": True, "response": f"Request failed: {e}"}
 
 
-def send(agent: str, message: str, plan: str) -> dict:
+def send(agent: str, message: str) -> dict:
     """One /chat turn on a fresh session. Returns the parsed response dict
     (or an error dict shaped the same way callers can check)."""
-    return _post_chat(AGENTS[agent], f"bench-{uuid.uuid4().hex[:8]}", message, plan)
+    return _post_chat(AGENTS[agent], f"bench-{uuid.uuid4().hex[:8]}", message)
 
 
-def send_conversation(agent: str, messages: list, plan: str) -> tuple:
+def send_conversation(agent: str, messages: list) -> tuple:
     """Sends several turns in order on ONE session — for cases that need to
     create a record, then act on it, and check the reply to the second turn
     (e.g. an update doesn't silently change a gated record's status).
@@ -74,7 +74,7 @@ def send_conversation(agent: str, messages: list, plan: str) -> tuple:
     turn_results = []
     last = {}
     for message in messages:
-        last = _post_chat(url, session_id, message, plan)
+        last = _post_chat(url, session_id, message)
         transcript.append((message, last.get("response", "")))
         turn_results.append(last)
         if last.get("error"):

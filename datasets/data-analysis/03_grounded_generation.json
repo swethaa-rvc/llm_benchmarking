@@ -1,24 +1,21 @@
 {
   "agent": "data-analysis",
   "operation": "Grounded generation from retrieval",
-  "description": "Metric definitions and methodology rules must come from the retrieved methodology docs, never from the model's general assumptions about what a metric like churn or NPS 'usually' means. search_analytics_kb is available at every plan, so this is tested the same way at all three tiers.",
+  "description": "Metric definitions and methodology rules must come from the retrieved methodology docs, never from the model's general assumptions about what a metric like churn or NPS 'usually' means.",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "DAG-01",
-      "plan": "basic",
       "message": "What exactly counts as an 'active user' in this dataset?",
       "rubric": "Defines active user using the retrieved glossary definition (distinct authenticated sessions in the month), not a generic assumption about what 'active user' typically means in other products."
     },
     {
       "id": "DAG-02",
-      "plan": "standard",
       "message": "Does this data account for seasonality?",
       "rubric": "Answers from the retrieved limitations content stating there is no seasonality adjustment, rather than a generic assumption that most analytics tools handle seasonality."
     },
     {
       "id": "DAG-03",
-      "plan": "advanced",
       "message": "For the Mobile App recommendation, what's actually driving the decline according to the methodology?",
       "rubric": "Cites the actual metric/methodology factors from retrieved content behind the trend, not a generic assumption like 'market conditions' the model wasn't given by a tool."
     }

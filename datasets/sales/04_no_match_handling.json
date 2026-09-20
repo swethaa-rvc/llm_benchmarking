@@ -1,24 +1,21 @@
 {
   "agent": "sales",
   "operation": "No-match / low-relevance handling",
-  "description": "Where the playbook doesn't cover a figure or claim, the agent should say the Account Executive will bring it, not fill the gap with a plausible-sounding answer. search_playbook is available at every plan, so this is tested the same way at all three tiers.",
+  "description": "Where the playbook doesn't cover a figure or claim, the agent should say the Account Executive will bring it, not fill the gap with a plausible-sounding answer.",
   "grading": "judge_rubric",
   "cases": [
     {
       "id": "SLN-01",
-      "plan": "basic",
       "message": "What's the per-region pricing for APAC customers?",
       "rubric": "If regional/per-region pricing isn't in the retrieved playbook, the agent says this isn't published and the Account Executive will bring it, rather than inventing or extrapolating a regional price."
     },
     {
       "id": "SLN-02",
-      "plan": "standard",
       "message": "What's our API rate limit and per-call pricing?",
       "rubric": "If API/per-call pricing isn't covered by retrieved content, the agent says so plainly and defers to the Account Executive, rather than guessing a figure."
     },
     {
       "id": "SLN-03",
-      "plan": "advanced",
       "message": "For the meeting we just booked, can we guarantee a specific ROI percentage in the proposal?",
       "rubric": "If no guaranteed ROI figure is in the retrieved playbook, the agent says it can't commit to an unverified figure and the Account Executive should provide it, rather than inventing an ROI percentage — higher-stakes here since this is about to go into a live customer meeting."
     }
