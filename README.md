@@ -300,25 +300,39 @@ The [Dockerfile](Dockerfile) packages the REST service: a `python:3.11-slim`
 base image, the dependencies from `requirements.txt`, and `uvicorn
 service:app` on port **8000**.
 
-### Build
+### Build and run (recommended: Docker Compose)
+
+[docker-compose.yml](docker-compose.yml) always loads `.env` and sets
+`AGENT_HOST`, the port and the volumes, so there are no flags to forget:
+
+```powershell
+docker compose up -d --build     # build the image and start the container
+docker compose logs -f           # watch a run (Ctrl+C stops watching, not the run)
+docker compose down              # stop and remove the container
+```
+
+After editing `.env` (for example, to switch the judge), run
+`docker compose up -d` again. Compose recreates the container with the new
+values. Then open http://localhost:8000/health. It shows the active judge
+and whether each agent is reachable.
+
+**The service won't start without the judge's API key.** If `JUDGE_PROVIDER`
+points to a provider whose key is empty, the container exits with an error
+such as `Judge ... is missing: API_KEY (TOGETHER_API_KEY)`. Check it with
+`docker compose logs`. This stops runs where every case scores 0 because the
+judge can't authenticate.
+
+### Without Compose (plain docker run, PowerShell)
 
 ```powershell
 docker build -t llm-ops-benchmark .
-```
-
-### Run (PowerShell)
-
-```powershell
 docker run -d --name llm-ops-benchmark -p 8000:8000 `
   --env-file .env `
   -e AGENT_HOST=host.docker.internal `
-  -v ${PWD}/models.json:/app/models.json `
   -v ${PWD}/benchmark.db:/app/benchmark.db `
   -v ${PWD}/results:/app/results `
   llm-ops-benchmark
 ```
-
-Then open http://localhost:8000/docs.
 
 ### What's in the image and what isn't
 

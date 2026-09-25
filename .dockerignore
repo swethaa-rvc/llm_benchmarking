@@ -5,6 +5,7 @@ __pycache__
 
 # secrets and local runtime data - mount these in at `docker run` instead
 .env
+.env.bak
 models.json
 pricing.json
 sla_targets.json

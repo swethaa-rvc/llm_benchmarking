@@ -21,9 +21,20 @@ from fastapi import BackgroundTasks, FastAPI, HTTPException
 import agent_client
 import db
 import report
-from config import JUDGE
+from config import JUDGE, resolve_credentials
 from rankings import _latest_run_id
 from runner import load_datasets, run_all
+
+# Refuse to start without the judge's credentials. Otherwise the service comes
+# up healthy and every case scores 0 with "judge call failed: Missing
+# credentials" - e.g. a container started without --env-file .env.
+_missing = [f"{k[:-4].upper()} ({v})" for k, v in JUDGE.items()
+            if k.endswith("_env") and not resolve_credentials(JUDGE).get(k[:-4])]
+if _missing:
+    raise RuntimeError(
+        f"Judge '{JUDGE.get('name')}' ({JUDGE.get('provider')}) is missing: "
+        f"{', '.join(_missing)}. Set JUDGE_PROVIDER, JUDGE_MODEL and the matching "
+        f"API key in .env (docker compose loads it automatically).")
 
 app = FastAPI(title="LLM Operations Benchmark API")
 
@@ -77,7 +88,10 @@ def _execute_benchmark(run_id: int, no_reset: bool) -> None:
 def health():
     """This service's own health, plus whether the 4 agents under test are
     reachable right now."""
-    return {"status": "ok", "agents": agent_client.health_check_all()}
+    return {"status": "ok",
+            "judge": {"name": JUDGE.get("name"), "provider": JUDGE.get("provider"),
+                      "model": JUDGE.get("model")},
+            "agents": agent_client.health_check_all()}
 
 
 @app.post("/runs", status_code=202)

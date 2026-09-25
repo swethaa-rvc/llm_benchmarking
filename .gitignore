@@ -7,3 +7,4 @@ pricing.json
 sla_targets.json
 results/
 benchmark.db
+.env.bak
