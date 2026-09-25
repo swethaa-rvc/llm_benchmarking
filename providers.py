@@ -30,11 +30,14 @@ def call_model(model_cfg: dict, system: str, user: str, temperature: float = 0.0
         from openai import OpenAI
 
         client = OpenAI(api_key=creds.get("api_key", ""))
+        # GPT-5 models reject any temperature but the default (1), so it's
+        # only sent to older models.
+        extra = {} if model_cfg["model"].startswith("gpt-5") else {"temperature": temperature}
         resp = client.chat.completions.create(
             model=model_cfg["model"],
-            temperature=temperature,
             messages=[{"role": "system", "content": system},
                      {"role": "user", "content": user}],
+            **extra,
         )
         return resp.choices[0].message.content or ""
 

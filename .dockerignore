@@ -1,0 +1,12 @@
+.venv
+__pycache__
+*.pyc
+.git
+
+# secrets and local runtime data - mount these in at `docker run` instead
+.env
+models.json
+pricing.json
+sla_targets.json
+benchmark.db
+results/

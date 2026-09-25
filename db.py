@@ -104,6 +104,17 @@ def finish_run(run_id: int) -> None:
     conn.close()
 
 
+def fail_run(run_id: int, error: str) -> None:
+    """Marks a run finished with the error recorded in `notes`, so a run that
+    crashed mid-way (e.g. service.py's background task) still shows up as
+    done instead of stuck 'running' forever, with the reason visible."""
+    conn = connect()
+    conn.execute("UPDATE runs SET finished_at = ?, notes = ? WHERE id = ?",
+                 (_now(), f"ERROR: {error}", run_id))
+    conn.commit()
+    conn.close()
+
+
 # ── Results ──────────────────────────────────────────────────────────────────
 
 def insert_result(run_id: int, r: dict) -> None:

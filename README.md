@@ -182,6 +182,42 @@ All three accept `--run <id>` to inspect a specific past run, and
 `rankings.py`/`costs.py` accept `--by operation` or `--by model` to break
 down differently.
 
+## Running it as a service (REST API)
+
+Everything above also works as a triggerable HTTP service instead of a
+terminal script — `service.py` wraps `run_benchmark.py`, `rankings.py`,
+`sla_check.py`, and `costs.py` as endpoints, so another system can start a
+run or read results without SSH-ing in:
+
+    pip install -r requirements.txt
+    uvicorn service:app --host 0.0.0.0 --port 8000
+
+| Endpoint | What it does |
+|---|---|
+| `GET /health` | this service's status + whether the 4 agents are reachable |
+| `POST /runs` | starts a benchmark run in the background, returns `{"run_id": ...}` immediately (`?no_reset=true` to skip demo reset) |
+| `GET /runs/{id}` | that run's status (`running`/`finished`) and, once finished, its rankings |
+| `GET /rankings` | same as `rankings.py` — `?by=agent\|operation\|model`, `?run_id=3`, `?all_time=true` |
+| `GET /sla-check` | same as `sla_check.py`, plus `any_breach: true/false` |
+| `GET /costs` | same as `costs.py` — same `by`/`run_id`/`all_time` params |
+
+A run only stores one at a time — `POST /runs` returns `409` if a run is
+already in progress (checked by looking for a `runs` row with no
+`finished_at` yet). If a run crashes mid-way, its error is recorded in that
+run's `notes` column instead of leaving it stuck as "running" forever.
+
+**Containerized:**
+
+    docker build -t llm-ops-benchmark .
+    docker run -p 8000:8000 --env-file .env \
+      -v ${PWD}/models.json:/app/models.json \
+      -v ${PWD}/benchmark.db:/app/benchmark.db \
+      llm-ops-benchmark
+
+`.env`, `models.json`, `pricing.json`, `sla_targets.json`, and
+`benchmark.db` are runtime data/secrets, not baked into the image (see
+`.dockerignore`) — mount them in at `docker run` time.
+
 ## Comparing before vs. after a change
 
 Run the benchmark, change something (a prompt, a rubric weight, the model an
@@ -276,6 +312,8 @@ was actually in effect when it ran, not today's rate.
     rankings.py                         agent/operation/model leaderboard, from stored history
     sla_check.py                         breach report against sla_targets, exits non-zero on breach
     costs.py                              $ spent, from stored history
+    service.py                              REST API wrapping run_benchmark/rankings/sla_check/costs
+    Dockerfile                                containerizes service.py (see "Running it as a service")
     datasets/<agent>/*.json                 4 operations per agent, 3 cases each (48 total)
 
 ## Extending it
